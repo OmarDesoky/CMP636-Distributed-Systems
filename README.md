@@ -3,3 +3,4 @@ CMP636 Labs
 
 # Labs:
 - gRPC
+- GlusterFS
