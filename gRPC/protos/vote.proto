@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+service Voter {
+    rpc SendVote (VoteRequest) returns (VoteResponse) {}
+}
+
+message VoteRequest {
+    string id = 1;
+    bool vote_value = 2;
+}
+  
+message VoteResponse {
+    string id = 1;
+    string status = 2;
+}
