@@ -8,7 +8,7 @@ def run():
             random_vote = random.choice([True, False])
             req = vote_pb2.VoteRequest(id= thread_id, vote_value = random_vote)
             response = stub.SendVote(req)
-            print(thread_id + " sent " + str(random_vote) + " and received " + response.status)
+            print(f"{thread_id} sent {random_vote} and received {response.status}")
     except grpc.RpcError as e:
         print(f"RPC error: {e.code()} - {e.details()}")     
         
