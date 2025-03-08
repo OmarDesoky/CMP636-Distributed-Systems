@@ -6,21 +6,27 @@ class Voter(vote_pb2_grpc.VoterServicer):
         self.true_votes = 0
         self.false_votes = 0
         self.total_votes = 12
+        self.voting_close = False
         self.lock = threading.Lock()
         
     def SendVote(self, request, context):
         try: 
             with self.lock:
+                if self.voting_close:
+                    return vote_pb2.VoteResponse(id=request.id, status="voting already closed")
+                    
                 if request.vote_value:
                     self.true_votes += 1
                 else:
                     self.false_votes += 1
-                
+                    
                 if (self.true_votes > self.total_votes / 2) or (self.false_votes > self.total_votes / 2):
                     print(f"voting closed. majority reached: true={self.true_votes} and flase={self.false_votes}")
+                    self.voting_close = True
                     server.stop(0)
                 elif self.false_votes == self.true_votes and self.false_votes == self.total_votes / 2:
                     print("voting is draw")
+                    self.voting_close = True
                     server.stop(0)
                     
             return vote_pb2.VoteResponse(id=request.id, status="voting succeeded")
