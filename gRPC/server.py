@@ -35,7 +35,7 @@ class Voter(vote_pb2_grpc.VoterServicer):
         
 def serve():
     port = "50051"
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=20))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
     vote_pb2_grpc.add_VoterServicer_to_server(Voter(), server)
     server.add_insecure_port("[::]:" + port)
     try:
