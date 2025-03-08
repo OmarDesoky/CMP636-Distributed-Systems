@@ -1,4 +1,8 @@
 # Byte-compiled / optimized / DLL files
+*pb2.py
+*pb2.pyi
+*pb2_grpc.py
+generated
 __pycache__/
 *.py[cod]
 *$py.class
