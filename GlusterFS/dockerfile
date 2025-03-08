@@ -1,0 +1,14 @@
+FROM ubuntu:18.04
+
+RUN apt-get -y update
+RUN apt-get -y install net-tools
+RUN apt-get -y install nano
+RUN apt-get -y install software-properties-common
+RUN add-apt-repository ppa:gluster/glusterfs-10
+RUN apt-get -y update
+RUN apt-get -y install glusterfs-server
+RUN /usr/sbin/glusterd -p /var/run/glusterd.pid
+RUN mkdir /home/disk1/
+
+EXPOSE 24007
+EXPOSE 49152-49160
