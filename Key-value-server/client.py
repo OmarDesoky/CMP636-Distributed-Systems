@@ -8,15 +8,15 @@ def run(operation, key, value):
             if operation == "Put":
                 req = api_pb2.PutRequest(key= key, value= value)
                 response = stub.Put(req)
-                print(f"{thread_id} sent put request with key: {key} and value: {value} and received {response.status}")
+                # print(f"{thread_id} sent put request with key: {key} and value: {value} and received {response.status}")
             elif operation == "Append":
                 req = api_pb2.AppendRequest(key= key, args= value)
                 response = stub.Append(req)
-                print(f"{thread_id} sent append request with key: {key} and args: {value} and received old_value: {response.old_value} and status: {response.status}")
+                # print(f"{thread_id} sent append request with key: {key} and args: {value} and received old_value: {response.old_value} and status: {response.status}")
             else:
                 req = api_pb2.GetRequest(key=key)
                 response = stub.Get(req)
-                print(f"{thread_id} sent get request with key: {key} and received value: {response.value} and status: {response.status}")
+                # print(f"{thread_id} sent get request with key: {key} and received value: {response.value} and status: {response.status}")
     except grpc.RpcError as e:
         print(f"RPC error: {e.code()} - {e.details()}")     
         

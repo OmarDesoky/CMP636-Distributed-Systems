@@ -13,7 +13,9 @@ class KeyValue(api_pb2_grpc.KeyValueServicer):
                 if request.key in self.map:
                     res = self.map[request.key]
             if res == None:
+                print(f"recieved get request with key: {request.key} and key doesn't exist")
                 return api_pb2.GetResponse(value=res, status="key doesn't exist")
+            print(f"recieved get request with key: {request.key} and output: {res}")
             return api_pb2.GetResponse(value=res, status="success")
         except Exception as e:
             print(f"Error processing get request: {e}")
@@ -23,6 +25,7 @@ class KeyValue(api_pb2_grpc.KeyValueServicer):
         try: 
             with self.lock:
                 self.map[request.key] = request.value
+            print(f"recieved put request with key: {request.key} and value: {request.value} and output: success")
             return api_pb2.PutResponse(status="success")    
         except Exception as e:
             print(f"Error processing put request: {e}")
@@ -38,6 +41,7 @@ class KeyValue(api_pb2_grpc.KeyValueServicer):
                     self.map[request.key] += request.args
                 else:
                     self.map[request.key] = request.args
+            print(f"recieved append request with key: {request.key} and args: {request.args} and output: {old_value}")
             return api_pb2.AppendResponse(old_value= old_value, status="success")    
         except Exception as e:
             print(f"Error processing Append request: {e}")
@@ -46,7 +50,7 @@ class KeyValue(api_pb2_grpc.KeyValueServicer):
 def serve():
     port = "50051"
     global server
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
     api_pb2_grpc.add_KeyValueServicer_to_server(KeyValue(), server)
     server.add_insecure_port("[::]:" + port)
     try:
