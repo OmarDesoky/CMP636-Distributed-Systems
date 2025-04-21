@@ -5,3 +5,4 @@ CMP636 Labs
 - gRPC
 - GlusterFS
 - Key-Value server.
+- Raft Key-Value.
