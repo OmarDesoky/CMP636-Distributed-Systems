@@ -1,21 +1,3 @@
-# from threading import Thread
-# import server
-# import client
-
-# if __name__ == "__main__":
-#     # # Create Server
-#     server_thread = Thread(target=server.serve, name="server")
-#     server_thread.start()
-#     # Test Get, Put, and Append At Same Time
-#     client_thread1 = Thread(target=client.run, name="client", args=("Append", "K1", "V1"))
-#     client_thread2 = Thread(target=client.run, name="client", args=("Append", "K1", "V2"))
-#     client_thread3 = Thread(target=client.run, name="client", args=("Append", "K1", "V3"))
-#     client_thread4 = Thread(target=client.run, name="client", args=("Append", "K1", "V4"))
-#     client_thread1.start()
-#     client_thread2.start()
-#     client_thread3.start()
-#     client_thread4.start()
-
 from threading import Thread
 import server
 import client
