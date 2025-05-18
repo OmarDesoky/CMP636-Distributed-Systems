@@ -6,3 +6,4 @@ CMP636 Labs
 - GlusterFS
 - Key-Value server.
 - Raft Key-Value.
+- Static Sharding.
